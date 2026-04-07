@@ -10,6 +10,10 @@ coverage
 build
 dist
 
+# Next.js
+.next
+.vercel
+
 # misc
 .DS_Store
 .env.local
@@ -21,11 +25,15 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
 
-# Gemini / Editor
+# Editor
 .gemini
 .vscode
 .idea
+
+# Prisma
+prisma/.cache
 
 # Nested project
 lms-system/
