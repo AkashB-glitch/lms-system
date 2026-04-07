@@ -26,3 +26,6 @@ yarn-error.log*
 .gemini
 .vscode
 .idea
+
+# Nested project
+lms-system/

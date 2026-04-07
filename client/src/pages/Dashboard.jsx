@@ -33,7 +33,8 @@ const Dashboard = () => {
     fetchData();
 
     // Setup Socket.io for Real-time Notifications
-    const socket = io('http://localhost:5000');
+    const socketUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000';
+    const socket = io(socketUrl);
     if (user && user._id) {
       socket.emit('register', user._id);
       socket.on('notification', (payload) => {

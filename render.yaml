@@ -1,0 +1,38 @@
+services:
+  # Backend: Express + Socket.io Web Service
+  - type: web
+    name: lms-backend
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 18.0.0
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false # User must provide this in Render Dashboard
+      - key: JWT_SECRET
+        sync: false # User must provide this in Render Dashboard
+      - key: CLIENT_URL
+        fromService:
+          name: lms-frontend
+          type: static_site
+          property: url
+
+  # Frontend: Vite/React Static Site
+  - type: web
+    name: lms-frontend
+    env: static
+    rootDir: client
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_URL
+        # Note: You should manually set this in the Render dashboard to include /api 
+        # (e.g., https://lms-backend.onrender.com/api)
+        fromService:
+          name: lms-backend
+          type: web
+          property: url
